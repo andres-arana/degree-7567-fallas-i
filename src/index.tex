@@ -1,0 +1,395 @@
+\documentclass[a4paper,11pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paquetes utilizados
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Soporte para el lenguaje español
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+
+% Configuración de página
+\usepackage[lmargin=1in, rmargin=1in]{geometry}
+\setlength{\parskip}{0.75em}
+\setlength{\parindent}{1em}
+
+% Graficos
+\usepackage{graphicx}
+
+% Encabezados y pies de pagina
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{75.67 - Sist. Autom. de Diag. y Detección de Fallas I}
+\rhead{Trabajo Práctico Final}
+\cfoot{\thepage}
+
+% Tablas
+\usepackage{longtable}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Urls
+\usepackage[hidelinks]{hyperref}
+
+% Referencias
+\usepackage[nottoc,numbib]{tocbibind}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Titulo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle{empty}
+
+\begin{titlepage}
+
+  \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+  \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+
+  \center
+
+  \textsc{\LARGE Universidad de Buenos Aires}\\[1.0cm]
+  \textsc{\Large Facultad de Ingeniería}\\[1.5cm]
+
+
+  \textsc{\large 75.67 - Sistemas Automáticos de Diagnóstico y Detección de Fallas I}\\[0.25cm]
+  \HRule\\[0.25cm]
+  {\huge \bfseries Trabajo Práctico Final}\\
+  \HRule\\
+  Sistema experto sobre pesca deportiva en ríos y lagunas
+
+  \begin{bottompar}
+    \begin{minipage}[t]{.45\linewidth}
+      \begin{flushleft}
+        {\bfseries Autores:}
+
+        Arana, Andrés          - P. 86.203
+
+        Laghi, Guido           - P. 82.449
+
+        Pérez, Sebastián       - P. 85.191
+      \end{flushleft}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{.45\linewidth}
+      \begin{flushright}
+        {\bfseries Profesor:}
+
+        Merlino, Hernán Daniel
+      \end{flushright}
+    \end{minipage}
+  \end{bottompar}
+
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documento
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-----------------------------------------------------------------------
+% Abstract
+%-----------------------------------------------------------------------
+\begin{abstract}
+
+  El presente documento detalla el desarrollo del trabajo práctico final para
+  la materia 75.67 - Sistemas Automáticos de Diagnóstico y Detección de Fallas
+  I de la carrera de Ingeniería en Informática de la Universidad de Buenos
+  Aires. El mismo consiste en la elicitación, formalización, modelado e
+  implementación de un sistema experto sobre la pesca deportiva de agua dulce
+  en la República Argentina, utilizando la metodología IDEAL analizada en la
+  materia.
+
+\end{abstract}
+\clearpage
+
+%-----------------------------------------------------------------------
+% Tabla de contenidos
+%-----------------------------------------------------------------------
+\tableofcontents
+\clearpage
+
+%-----------------------------------------------------------------------
+% Desarrollo
+%-----------------------------------------------------------------------
+\section{Viabilidad}
+
+\subsection{Objetivo y alcance}
+
+El objetivo del proyecto es la elaboración de un sistema experto que modele el
+conocimiento sobre la pesca deportiva de especies de agua dulce en la República
+Argentina, permitiendo realizar consultas para determinar el equipamiento,
+lugar, tiempo y especie apropiados en base a las preferencias del usuario.
+
+El alcance del proyecto es la deducción, conceptualización y formalización del
+conocimiento, así como también la implementación del sistema de un sistema
+básico por consola que permita realizar consultas sobre la base de
+conocimientos. Se permitirá definir diferentes características de una salida de
+pesca, y el sistema recomendará las mejores opciones de equipo, especies,
+fechas y horas en función de la selección interactiva del usuario.
+
+\subsection{Experto}
+
+El experto a consultar en el desarrollo del sistema es Clodomiro Morinigo,
+pescador en modalidad deportiva con más de 50 años de experiencia en la pesca
+de especies nativas de Buenos Aires y el litoral argentino.
+
+Se coordinó con el experto la posibilidad de realizar, si fuese necesario,
+reuniones semanales los días sábados, domingos y lunes de hasta 3 horas de
+duración, a partir de las 19hs. Se garantizó la disponibilidad para realizar
+hasta una reunión por semana.
+
+\subsection{Requerimientos}
+
+Se desarrollará una aplicación interactiva de consola que permita definir
+características de una salida de pesca.En base a las características definidas,
+se podrán consultar las mejores opciones de equipo, especies, fecha y horas
+para las mismas. Las características de la salida se refinarán de manera
+interactiva, pudiendo confirmar y retractar atributos de la salida y obteniendo
+las opciones actualizadas en tiempo real.
+
+\section{Desarrollo}
+
+\subsection{Conceptualización}\label{sec:concept}
+
+Se decidió comenzar el proceso de deducción y conceptualización con una
+entrevista abierta con el experto. En la misma se extrajeron los conceptos
+principales y algunos atributos que se detallan en la sección~\ref{sec:tcav}.
+
+Una vez elaborada la tabla de conceptos, atributos y valores inicial, se
+realizó una investigación sobre el cuerpo de conocimiento público. En
+particular, se utilizaron dos sitios recomendados por el experto:
+\url{http://www.irapescar.com/} y \url{http://www.pescaargentina.com.ar/}.
+
+El objetivo de esta investigación fue conseguir una base de conocimiento previo
+para poder realizar un diccionario inicial de conceptos y atributos, además de
+completar la tabla de conceptos, atributos y valores con mayor detalle. Se puso
+especial énfasis en que esta fase fuese exploratoria: se recopilaron conceptos,
+atributos y valores sin realizar ningún tipo de filtro. Posteriormente, algunos
+de estos fueron eliminados del modelo en base a la entrevista subsiguiente con
+el experto.
+
+Una vez terminada la fase exploratoria del conocimiento público, se realizó una
+nueva entrevista con el experto, con formato cerrado, para validar la tabla de
+la sección~\ref{sec:tcav} y el diccionario de la sección~\ref{sec:dca}. En esta
+entrevista se eliminaron conceptos, atributos y valores irrelevantes, se
+redefinieron algunos atributos y finalmente se aprobaron los contenidos de
+ambas secciones como se detallan en el presente documento.
+
+En la misma entrevista se realizó un emparrillado de manera interactiva. Se
+transcribe el mismo en la sección~\ref{sec:emp}.
+
+En base a todo el conocimiento formalizado hasta el momento, se organizó una
+última entrevista para aprobar los modelos desarrollados
+
+\subsection{Formalización}
+
+En esta sección se detallan todos los modelos realizados en el desarrollo del
+trabajo, en su versión final aprobada por el experto. Para una visión
+cronológica de los borradores presentados y su posterior aprobación, ver la
+sección~\ref{sec:concept}.
+
+\subsubsection{Tablas de conceptos, atributos y valores}\label{sec:tcav}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | p{0.15\linewidth} | p{0.2\linewidth} | p{0.65\linewidth} | }
+  \hline
+  \textbf{Concepto} & \textbf{Atributo} & \textbf{Valores} \\ \hline
+  Pez & Especie & Pejerrey, Boga, Surubí, Tararira, Dorado, Sábalo, Carpa, Tarucha Azul \\\hline
+  Pez & Estación & Primavera, Verano, Otoño, Invierno, Todas \\\hline
+  Pez & Temperatura & Templado, Cálido \\\hline
+  Pez & Estado del agua & Revuelta, Normal, Tranquila, Corredera, Pozo \\\hline
+  Pez & Horario ideal & Madrugada, Mañana, Mediodía, Tarde, Noche, Todos \\\hline
+  Pez & Tamaño & Chico, Mediano, Grande \\\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | p{0.15\linewidth} | p{0.2\linewidth} | p{0.65\linewidth} | }
+  \hline
+  \textbf{Concepto} & \textbf{Atributo} & \textbf{Valores} \\ \hline
+  Lancha & Propulsión & Motor, Remo \\\hline
+  Lancha & Tamaño & Entre 1 y 7 metros \\\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | p{0.15\linewidth} | p{0.2\linewidth} | p{0.65\linewidth} | }
+  \hline
+  \textbf{Concepto} & \textbf{Atributo} & \textbf{Valores} \\\hline
+  Caña & Rigidez & Flexible, Rígida \\\hline
+  Caña & Línea & Entre 0.2 y 1mm \\\hline
+  Caña & Carnada & Masa, Lombriz, Mojarra, Bagre, Anguila, Señuelo \\\hline
+  Caña & Telescópica & Si, No \\\hline
+  Caña & Tamaño & 1,5m, 2,5m, 4m \\\hline
+  Caña & Plomada & Pequeña, Mediana, Grande \\\hline
+  Caña & Anzuelo & N°3, N°4, N°5, N°6, N°7, N°8, N°9, N°10 \\\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | p{0.15\linewidth} | p{0.2\linewidth} | p{0.65\linewidth} | }
+  \hline
+  \textbf{Concepto} & \textbf{Atributo} & \textbf{Valores} \\\hline
+  Reel & Tipo & Frontal, Malacate \\\hline
+  Reel & Tamaño & Chico, Mediano, Grande \\\hline
+  Reel & Freno & Si, No \\\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | p{0.15\linewidth} | p{0.2\linewidth} | p{0.65\linewidth} | }
+  \hline
+  \textbf{Concepto} & \textbf{Atributo} & \textbf{Valores} \\\hline
+  Ubicación & Nombre & \\\hline
+  Ubicación & Tipo & Río, Lago, Laguna \\\hline
+  Ubicación & Profundidad máx. & \\\hline
+  Ubicación & Coordenadas & \\\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Diccionario de conceptos y atributos}\label{sec:dca}
+
+\begin{description}
+
+  \item [Pez] Animales vertebrados acuáticos. En el contexto de este trabajo
+    nos centraremos en aquellos peces que son pescados en la República
+    Argentina.
+
+  \item [Especie] Unidad básica de clasificación biológica de los peces. En el
+    contexto de este trabajo nos centraremos en aquellas especies de peces que
+    son pescados en la República Argentina.
+
+  \item[Estación] Estación del año óptima en la que se puede pescar con mayor
+    probabilidad una determinada especie.
+
+  \item[Temperatura] Temperatura óptima del agua en la que se puede pescar con
+    mayor probabilidad una determinada especie. En la zona del litoral de la
+    República Argentina sólo se encuentran temperaturas templadas y cálidas.
+
+  \item[Estado del agua] Ciertas especies, debido a sus hábitos alimenticios,
+    se encuentran con mayor probabilidad en zonas de un cuerpo de agua en donde
+    se forman ciertos fenómenos de flujo hídrico. Los valores posibles son
+    \emph{Revuelta} cuando el flujo es turbulento, \emph{Normal} cuando el
+    flujo es estable, \emph{Tranquila} cuando no hay flujo, \emph{Corredera}
+    cuando el flujo es elevado y monodireccional, \emph{Pozo} cuando la
+    profundidad del flujo es mucho mayor que en la cercanía.
+
+  \item[Horario ideal] Horario del día ideal para capturar una especie
+    particular, discretizado a \emph{Mañana} entre las 7:00 y las 12:00,
+    \emph{Mediodía} entre 12:00 y las 15:00, \emph{Tarde} entre las 15:00 y las
+    19:00, \emph{Noche} entre las 19:00 y las 12:00 y \emph{Madrugada} entre
+    las 12:00 y las 7:00.
+
+  \item[Tamaño] Peso promedio considerando una distribución normal de una
+    cierta especie, discretizado a \emph{Chico} para pesos menores a 4 kg,
+    \emph{Mediano} para pesos entre 4kg y 7kg y \emph{Grande} para pesos
+    mayores a 7kg.
+
+  \item[Lancha] Embarcación utilizada para pescar.
+
+  \item[Propulsión] Tipo de propulsión utilizada para mover la lancha. Cada
+    método de propulsión tiene sus propias características \emph{Motor} es más
+    cómodo y rápido, pero debe apagarse para poder realizar algunos tipos de
+    pesca. \emph{Remo} es más lento, pero puede utilizarse en cualquier
+    momento.
+
+  \item[Caña] Aparejo utilizado para pescar.
+
+  \item[Rigidez] Flexibilidad de la caña. Especies más grandes y más pesadas
+    requieren una mayor flexibilidad para evitar quiebres y fallas en el
+    equipo.
+
+  \item[Línea] Hilo de nylon utilizado en la caña para unir al anzuelo. En
+    particular, nos interesa el diámetro seccional del hilo, entre 0.2mm y 1mm.
+    Mayores diámetros son utilizados para especies más grandes y pesadas,
+    aunque también hay que tener en cuenta la violencia con la que se comporta
+    la especie cuando es encañada.
+
+  \item[Carnada] Tipo de carnada que una caña lleva. Puede ser una masa
+    proteica, lombriz o algún tipo de carnada viva.
+
+  \item[Telescópica] Una caña telescópica permite la extensión dinámica de la
+    misma para realizar tiros más profundos y lejanos.
+
+  \item[Tamaño] Longitud de la caña. Cañas más largas permiten una mayor
+    llegada, pero pueden romperse más fácilmente con especies más violentas o
+    grandes.
+
+  \item[Plomada] Peso adicional que se ubica en la cercanía del anzuelo para
+    mantener la carnada o el señuelo a una profundidad deseada.
+
+  \item[Anzuelo] Tamaño del anzuelo utilizado. Anzuelos más pequeños son
+    utilizados para especies pequeñas y viceversa.
+
+  \item[Reel] Dispositivo que une la línea a la caña, y controla la entrega y
+    toma de línea.
+
+  \item[Tipo] Tipo de reel. Los reeles frontales son más livianos y fáciles de
+    usar, pero algo más vulnerables a fallas cuando la especie pescada es más
+    grande o violenta.
+
+  \item[Tamaño] Tamaño del reel. Reeles más grandes son utilizados para
+    especies más grandes, tienen más resistencia pero menor sensibilidad.
+
+  \item[Freno] Dispositivo que retrasa la entrega de línea, de manera que el
+    pez debe realizar más fuerza para tomar línea.
+
+\end{description}
+
+\subsubsection{Emparrillado}\label{sec:emp}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | p{0.15\linewidth} | p{0.10\linewidth} | p{0.10\linewidth} | p{0.10\linewidth} | p{0.10\linewidth} | p{0.10\linewidth} | p{0.10\linewidth} | p{0.10\linewidth} | }
+  \hline
+  & \textbf{Pejerrey} & \textbf{Boga} & \textbf{Surubí} & \textbf{Tararira} & \textbf{Dorado} & \textbf{Carpa} & \textbf{Tarucha Azul} \\\hline
+  \textbf{Carnada} & Mojarra & Masa & Anguila & Mojarra & Bagre & Lombriz & Mojarra \\\hline
+  \textbf{Línea} & 0.2 & 0.2 & 0.4 & 0.3 & 0.4 & 0.2 & 0.4 \\\hline
+  \textbf{Señuelo} & No & No & Si & Si & Si & No & Si \\\hline
+  \textbf{Plomada} & No & Si & Si & Si & Si & Si & Si \\\hline
+  \textbf{Reel} & Chico & Mediano & Grande & Mediano & Mediano & Chico & Mediano \\\hline
+  \textbf{Caña} & 4m & 2.5m & 1.5m & 1.5m & 1.5m & 2.5m & 1.5m \\\hline
+  \textbf{Telescópica} & Si & No & No & No & No & No & No \\\hline
+  \textbf{Anzuelo} & 3 & 7 & 10 & 7 & 7 & 3 & 8 \\\hline
+  \textbf{Estación} & Invierno & Verano & Verano & Verano & Todas & Verano & Verano \\\hline
+  \textbf{Agua} & Revuelta & Normal & Normal & Tranquila & Corredera & Normal & Tranquila \\\hline
+  \textbf{Temperatura} & Templado & Cálido & Cálido & Cálido & Cálido & Cálido & Cálido \\\hline
+  \textbf{Horario} & Mañana & Todo & Madrugada, Noche & Noche & Mañana, Tarde & Todo & Noche \\\hline
+  \textbf{Profundidad} & Superficial & Profundo & Profundo & Media & Media & Todo & Media \\\hline
+  \textbf{Ubicación} & Laguna & Río & Río & Laguna & Río & Laguna & Río \\\hline
+  \textbf{Tamaño} & Chico & Mediano & Grande & Mediano & Mediano & Chico & Mediano \\\hline
+  \textbf{Freno} & No & Si & Si & Si & Si & Si & Si \\\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusiones}
+
+Durante la fase de deducción de conocimiento pudimos comprobar la dificultad de
+externalizar el conocimiento interno del experto.
+
+En primer lugar, luego de la primer entrevista, tuvimos que volcarnos al
+repositorio de conocimiento público para hacer definiciones certeras de cada
+concepto, atributo y valor: el experto no podía externalizar ese conocimiento
+debido a que su perspectiva es la de alguien que intuitivamente conoce dichos
+elementos, por lo que le era difícil explicar a alguien que no tiene el
+conocimiento qué significa cada término.
+
+Por otro lado, descubrimos muchas reglas que el experto conocía intuitivamente,
+y que ni siquiera era consciente que aplicaba. Por ejemplo, inicialmente
+relevamos que el tamaño del reel dependía de la especie que se quería pescar.
+Sin embargo, luego de examinar el emparrillado, comprendimos que el tamaño del
+reel depende en realidad mayoritariamente del tamaño promedio de la especie,
+así como también de la violencia con la que se comporta la misma en el
+encañado. Cuando validamos la regla con el experto, le pareció una apreciación
+obvia.
+
+\end{document}
