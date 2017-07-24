@@ -1,35 +1,20 @@
-# Kozily - Admin
+# 75.67 - Fallas I
 
-Kozily: Study and interact with the Oz language in a cozy development
-environment.
+Este repositorio contiene el proyecto realizado en la materia (75.67) Fallas I
+en la FIUBA.
 
-Kozily was created as final project of two Universidad de Buenos Aires,
-Facultad de Ingeniería alumni. This repository contains the required
-documentation that was presented in this context. It's also the main repository
-in which the issues, labels and milestones are tracked, and where other usage
-documentation is hosted.
+## Desarrollo
 
-## License
+### Prerequisitos
 
-The MIT License (MIT)
+El entorno de desarrollo está gestionado con docker, por lo que es necesario
+instalar [docker](https://www.docker.com/). Ninguna otra
+dependencia es necesaria.
 
-Copyright (c) 2016 Kozily
+Una vez instalado docker, sólo es necesario correr `docker build . -t 7567`
+para compilar el entorno de desarrollo localmente.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+### Inicio rápido
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
+Para iniciar una consola en la que correr las queries es necesario ejecutar
+`bin/start`.

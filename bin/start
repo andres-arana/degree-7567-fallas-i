@@ -1,0 +1,2 @@
+#! /bin/bash
+docker run -it --rm --volume $PWD:/opt/project 7567 lein repl
